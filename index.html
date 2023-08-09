@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="es"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<title>HTML5 Battery API - Htmldesdecero.es</title>
+
+<link rel="stylesheet" href="css/normalize.css">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/jquery.js"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            if ("getBattery" in navigator) {
+                navigator.getBattery().then(function(battery) {
+                    var level = battery.level * 100;
+                    var levelBar = $('.level');
+
+                    if (battery.charging) {
+                        levelBar.addClass('charging');
+                    } else if (level > 65) {
+                        levelBar.addClass('high');
+                    } else if (level >= 35) {
+                        levelBar.addClass('med');
+                    } else {
+                        levelBar.addClass('low');
+                    }
+
+                    if (!battery.charging) {
+                        levelBar.css('width', level + '%');
+                    }
+                });
+            } else {
+                $('.level').text("API de batería no compatible");
+            }
+        });
+    </script>
+</head>
+
+<body>
+<div class="demo-wrapper">
+	<div class="attention">
+		Vea esta demostración en navegadores compatibles, de lo contrario no funciona.
+	</div>
+
+	<div class="battery">
+		<div class="level">
+				
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
